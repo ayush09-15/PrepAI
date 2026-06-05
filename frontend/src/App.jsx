@@ -4,6 +4,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import Interview from "./pages/Interview";
+import CreateInterview from "./pages/CreateInterview";
 
 import { ROUTES } from "./routes/routes";
 
@@ -30,6 +31,10 @@ function App() {
       <Interview />
     </ProtectedRoute>
   }
+/>
+<Route
+  path={ROUTES.CREATE_INTERVIEW}
+  element={<CreateInterview />}
 />
       </Routes>
     </BrowserRouter>
