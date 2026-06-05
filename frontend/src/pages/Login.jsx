@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { loginUser } from "../services/api/authApi";
 import AuthLayout from "../components/layout/AuthLayout";
 
 function Login() {
@@ -14,11 +15,31 @@ function Login() {
     }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    console.log("Login Data:", formData);
-  };
+  try {
+    const data = await loginUser(
+      formData
+    );
+
+    console.log(data);
+
+    localStorage.setItem(
+      "token",
+      data.token
+    );
+
+    alert("Login successful!");
+  } catch (error) {
+    console.error(error);
+
+    alert(
+      error.response?.data?.message ||
+      "Login failed"
+    );
+  }
+};
 
   return (
     <AuthLayout title="Login">
@@ -38,6 +59,7 @@ function Login() {
           type="password"
           name="password"
           placeholder="Password"
+          autoComplete="current-password"
           value={formData.password}
           onChange={handleChange}
         />
