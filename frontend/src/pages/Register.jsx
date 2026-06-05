@@ -1,5 +1,6 @@
 import { useState } from "react";
 import AuthLayout from "../components/layout/AuthLayout";
+import { registerUser } from "../services/api/authApi";
 
 function Register() {
   const [formData, setFormData] = useState({
@@ -15,11 +16,34 @@ function Register() {
     }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    console.log("Register Data:", formData);
-  };
+  try {
+    const data = await registerUser(
+      formData
+    );
+
+    console.log(data);
+
+    alert(
+      "Registration successful!"
+    );
+
+    setFormData({
+      name: "",
+      email: "",
+      password: "",
+    });
+  } catch (error) {
+    console.error(error);
+
+    alert(
+      error.response?.data?.message ||
+        "Registration failed"
+    );
+  }
+};
 
   return (
     <AuthLayout title="Register">
