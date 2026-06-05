@@ -1,5 +1,29 @@
+import AuthLayout from "../components/layout/AuthLayout";
+
 function Login() {
-  return <h1>Login Page</h1>;
+  return (
+    <AuthLayout title="Login">
+      <form>
+        <input
+          type="email"
+          placeholder="Email"
+        />
+        <br />
+        <br />
+
+        <input
+          type="password"
+          placeholder="Password"
+        />
+        <br />
+        <br />
+
+        <button type="submit">
+          Login
+        </button>
+      </form>
+    </AuthLayout>
+  );
 }
 
 export default Login;
