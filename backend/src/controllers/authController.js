@@ -2,35 +2,39 @@ const User = require("../models/user");
 const bcrypt = require("bcryptjs");
 
 const registerUser = async (req, res) => {
-  try {
-    const { name, email, password } = req.body;
+  // your existing register code
+};
 
-    const existingUser = await User.findOne({
+const loginUser = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    const user = await User.findOne({
       email,
     });
 
-    if (existingUser) {
+    if (!user) {
       return res.status(400).json({
         success: false,
-        message: "User already exists",
+        message: "Invalid credentials",
       });
     }
 
-    const hashedPassword = await bcrypt.hash(
+    const isPasswordMatch = await bcrypt.compare(
       password,
-      10
+      user.password
     );
 
-    const user = await User.create({
-      name,
-      email,
-      password: hashedPassword,
-    });
+    if (!isPasswordMatch) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid credentials",
+      });
+    }
 
-    res.status(201).json({
+    res.status(200).json({
       success: true,
-      message: "User registered successfully",
-      user,
+      message: "Login successful",
     });
   } catch (error) {
     res.status(500).json({
@@ -42,4 +46,5 @@ const registerUser = async (req, res) => {
 
 module.exports = {
   registerUser,
+  loginUser,
 };
