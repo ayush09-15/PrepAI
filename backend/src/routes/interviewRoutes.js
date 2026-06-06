@@ -14,6 +14,7 @@ const {
   uploadResume,
   submitInterview,
   getUserInterviews,
+  getInterviewById,
 } = require(
   "../controllers/interviewController"
 );
@@ -43,6 +44,12 @@ router.post(
   "/:id/submit",
   protect,
   submitInterview
+);
+
+router.get(
+  "/:id",
+  protect,
+  getInterviewById
 );
 
 module.exports = router;

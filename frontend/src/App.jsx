@@ -5,6 +5,7 @@ import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import Interview from "./pages/Interview";
 import CreateInterview from "./pages/CreateInterview";
+import InterviewDetails from "./pages/InterviewDetails";
 
 import { ROUTES } from "./routes/routes";
 
@@ -35,6 +36,15 @@ function App() {
 <Route
   path={ROUTES.CREATE_INTERVIEW}
   element={<CreateInterview />}
+/>
+
+<Route
+  path="/interviews/:id"
+  element={
+    <ProtectedRoute>
+      <InterviewDetails />
+    </ProtectedRoute>
+  }
 />
       </Routes>
     </BrowserRouter>
