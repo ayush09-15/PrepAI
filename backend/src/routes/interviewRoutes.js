@@ -12,6 +12,7 @@ const upload = require(
 const {
   createInterview,
   uploadResume,
+  submitInterview,
 } = require(
   "../controllers/interviewController"
 );
@@ -29,6 +30,12 @@ router.post(
   protect,
   upload.single("resume"),
   uploadResume
+);
+
+router.post(
+  "/:id/submit",
+  protect,
+  submitInterview
 );
 
 module.exports = router;

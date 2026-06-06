@@ -23,6 +23,13 @@ const interviewSchema = new mongoose.Schema(
         type: String,
       },
     ],
+
+    answers: [
+  {
+    type: String,
+  },
+],
+
     resumeFile: {
   type: String,
 },

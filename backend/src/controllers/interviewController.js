@@ -88,10 +88,39 @@ const uploadResume = async (
     });
   }
 };
+const submitInterview = async (
+  req,
+  res
+) => {
+  try {
+    const { answers } = req.body;
+
+    const interview =
+      await Interview.findByIdAndUpdate(
+        req.params.id,
+        {
+          answers,
+          status: "Completed",
+        },
+        { new: true }
+      );
+
+    res.status(200).json({
+      success: true,
+      interview,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
 
 
 
 module.exports = {
   createInterview,
   uploadResume,
+  submitInterview,
 };
