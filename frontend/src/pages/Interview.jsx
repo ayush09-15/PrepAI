@@ -6,21 +6,21 @@ import {
 
 function Interview() {
   const [questions, setQuestions] =
-  useState([]);
+    useState([]);
 
   const [interviewId,
-  setInterviewId] =
-  useState("");
+    setInterviewId] =
+    useState("");
 
   const [answers, setAnswers] =
-  useState([]);
+    useState([]);
 
   const [started, setStarted] =
-  useState(false);
+    useState(false);
 
-const [currentQuestion,
-  setCurrentQuestion] =
-  useState(0);
+  const [currentQuestion,
+    setCurrentQuestion] =
+    useState(0);
 
   const [formData, setFormData] =
     useState({
@@ -41,48 +41,48 @@ const [currentQuestion,
   };
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  try {
-    const uploadData =
-      new FormData();
+    try {
+      const uploadData =
+        new FormData();
 
-    uploadData.append(
-  "resume",
-  resume
-);
-
-uploadData.append(
-  "title",
-  formData.title
-);
-
-uploadData.append(
-  "role",
-  formData.role
-);
-
-uploadData.append(
-  "difficulty",
-  formData.difficulty
-);
-
-    const response =
-      await uploadResume(
-        uploadData
+      uploadData.append(
+        "resume",
+        resume
       );
 
-    setQuestions(
-  response.interview.questions
-);
+      uploadData.append(
+        "title",
+        formData.title
+      );
 
-setInterviewId(
-  response.interview._id
-);
-  } catch (error) {
-    console.error(error);
-  }
-};
+      uploadData.append(
+        "role",
+        formData.role
+      );
+
+      uploadData.append(
+        "difficulty",
+        formData.difficulty
+      );
+
+      const response =
+        await uploadResume(
+          uploadData
+        );
+
+      setQuestions(
+        response.interview.questions
+      );
+
+      setInterviewId(
+        response.interview._id
+      );
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <div>
@@ -151,106 +151,150 @@ setInterviewId(
           Create Interview
         </button>
       </form>
-      {questions.length > 0 && !started && (
-  <div>
-    <h2>Generated Questions</h2>
 
-    <ol>
-      {questions.map(
-        (question, index) => (
-          <li key={index}>
-            {question}
-          </li>
-        )
+      {questions.length > 0 &&
+        !started && (
+          <div>
+            <h2>
+              Generated Questions
+            </h2>
+
+            <ol>
+              {questions.map(
+                (
+                  question,
+                  index
+                ) => (
+                  <li
+                    key={index}
+                  >
+                    {question}
+                  </li>
+                )
+              )}
+            </ol>
+
+            <button
+              onClick={() =>
+                setStarted(
+                  true
+                )
+              }
+            >
+              Start Interview
+            </button>
+          </div>
+        )}
+
+      {started && (
+        <div>
+          <h2>
+            Question{" "}
+            {currentQuestion +
+              1}
+          </h2>
+
+          <p>
+            {
+              questions[
+                currentQuestion
+              ]
+            }
+          </p>
+
+          <textarea
+            rows="5"
+            cols="50"
+            placeholder="Type your answer..."
+            value={
+              answers[
+                currentQuestion
+              ] || ""
+            }
+            onChange={(e) => {
+              const updatedAnswers =
+                [...answers];
+
+              updatedAnswers[
+                currentQuestion
+              ] =
+                e.target.value;
+
+              setAnswers(
+                updatedAnswers
+              );
+            }}
+          />
+
+          <br />
+          <br />
+
+          <div>
+            <button
+              onClick={() =>
+                setCurrentQuestion(
+                  (
+                    prev
+                  ) =>
+                    prev - 1
+                )
+              }
+              disabled={false}
+            >
+              Previous Question
+            </button>
+
+            {" "}
+
+            {currentQuestion <
+            questions.length -
+              1 ? (
+              <button
+                onClick={() =>
+                  setCurrentQuestion(
+                    (
+                      prev
+                    ) =>
+                      prev + 1
+                  )
+                }
+              >
+                Next Question
+              </button>
+            ) : (
+              <button
+                onClick={async () => {
+                  try {
+                    const response =
+                      await submitInterview(
+                        interviewId,
+                        answers
+                      );
+
+                    console.log(
+                      response
+                    );
+
+                    alert(
+                      "Interview submitted successfully!"
+                    );
+                  } catch (
+                    error
+                  ) {
+                    console.error(
+                      error
+                    );
+                  }
+                }}
+              >
+                Submit Interview
+              </button>
+            )}
+          </div>
+        </div>
       )}
-    </ol>
-
-    <button
-      onClick={() =>
-        setStarted(true)
-      }
-    >
-      Start Interview
-    </button>
-  </div>
-)}
-{started && (
-  <div>
-    <h2>
-      Question {currentQuestion + 1}
-    </h2>
-
-    <p>
-      {
-        questions[
-          currentQuestion
-        ]
-      }
-    </p>
-
-    <textarea
-  rows="5"
-  cols="50"
-  placeholder="Type your answer..."
-  value={
-    answers[currentQuestion] || ""
-  }
-  onChange={(e) => {
-    const updatedAnswers =
-      [...answers];
-
-    updatedAnswers[
-      currentQuestion
-    ] = e.target.value;
-
-    setAnswers(
-      updatedAnswers
-    );
-  }}
-/>
-
-    <br />
-    <br />
-
-    {currentQuestion <
-questions.length - 1 ? (
-  <button
-    onClick={() =>
-      setCurrentQuestion(
-        (prev) => prev + 1
-      )
-    }
-  >
-    Next Question
-  </button>
-) : (
-  <button
-  onClick={async () => {
-    try {
-      const response =
-        await submitInterview(
-          interviewId,
-          answers
-        );
-
-      console.log(response);
-
-      alert(
-        "Interview submitted successfully!"
-      );
-    } catch (error) {
-      console.error(error);
-    }
-  }}
->
-  Submit Interview
-</button>
-)}
-  </div>
-)}
     </div>
   );
 }
-
 
 export default Interview;
