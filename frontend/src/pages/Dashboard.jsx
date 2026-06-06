@@ -1,3 +1,4 @@
+import "./Dashboard.css";
 import {
   useContext,
   useEffect,
@@ -64,67 +65,70 @@ function Dashboard() {
     navigate("/login");
   };
 
-  return (
-    <div>
-      <h1>Dashboard</h1>
+return (
+  <div className="dashboard-container">
+    <h1>Dashboard</h1>
 
-      <h2>
-        Total Interviews:
-        {totalInterviews}
-      </h2>
+    <div className="stats-container">
+      <div className="stat-card">
+        <h3>Total Interviews</h3>
+        <p>{totalInterviews}</p>
+      </div>
 
-      <h2>
-        Completed:
-        {completed}
-      </h2>
+      <div className="stat-card">
+        <h3>Completed</h3>
+        <p>{completed}</p>
+      </div>
 
-      <h2>
-  Pending:
-  {pending}
-</h2>
+      <div className="stat-card">
+        <h3>Pending</h3>
+        <p>{pending}</p>
+      </div>
+    </div>
 
-<h2>My Interviews</h2>
+    <h2>My Interviews</h2>
 
-{interviews.map((interview) => (
-  <div
-    key={interview._id}
-    style={{
-      border: "1px solid gray",
-      padding: "10px",
-      marginBottom: "10px",
-    }}
-  >
-    <h3>{interview.title}</h3>
+    {interviews.map((interview) => (
+      <div
+        key={interview._id}
+        className="interview-card"
+      >
+        <h3>{interview.title}</h3>
 
-    <p>
-      Status: {interview.status}
-    </p>
+        <p>
+          Status:
+          {" "}
+          {interview.status}
+        </p>
 
-    <p>
-      Difficulty:
-      {" "}
-      {interview.difficulty}
-    </p>
+        <p>
+          Difficulty:
+          {" "}
+          {interview.difficulty}
+        </p>
+
+        <button
+          className="view-btn"
+          onClick={() =>
+            navigate(
+              `/interviews/${interview._id}`
+            )
+          }
+        >
+          View Details
+        </button>
+      </div>
+    ))}
 
     <button
-      onClick={() =>
-        navigate(
-          `/interviews/${interview._id}`
-        )
-      }
+      className="logout-btn"
+      onClick={handleLogout}
     >
-      View Details
+      Logout
     </button>
   </div>
-))}
+);
 
-<button
-  onClick={handleLogout}
->
-  Logout
-</button>
-    </div>
-  );
 }
 
 export default Dashboard;
