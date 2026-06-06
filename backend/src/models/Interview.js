@@ -23,6 +23,9 @@ const interviewSchema = new mongoose.Schema(
         type: String,
       },
     ],
+    resumeFile: {
+  type: String,
+},
 
     user: {
       type: mongoose.Schema.Types.ObjectId,
