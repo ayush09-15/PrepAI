@@ -6,6 +6,9 @@ function Interview() {
   const [questions, setQuestions] =
   useState([]);
 
+  const [answers, setAnswers] =
+  useState([]);
+
   const [started, setStarted] =
   useState(false);
 
@@ -161,28 +164,52 @@ const [currentQuestion,
     </p>
 
     <textarea
-      key={currentQuestion}
-      rows="5"
-      cols="50"
-      placeholder="Type your answer..."
-    />
+  rows="5"
+  cols="50"
+  placeholder="Type your answer..."
+  value={
+    answers[currentQuestion] || ""
+  }
+  onChange={(e) => {
+    const updatedAnswers =
+      [...answers];
+
+    updatedAnswers[
+      currentQuestion
+    ] = e.target.value;
+
+    setAnswers(
+      updatedAnswers
+    );
+  }}
+/>
 
     <br />
     <br />
 
-    <button
-      onClick={() =>
-        setCurrentQuestion(
-          (prev) => prev + 1
-        )
-      }
-      disabled={
-        currentQuestion ===
-        questions.length - 1
-      }
-    >
-      Next Question
-    </button>
+    {currentQuestion <
+questions.length - 1 ? (
+  <button
+    onClick={() =>
+      setCurrentQuestion(
+        (prev) => prev + 1
+      )
+    }
+  >
+    Next Question
+  </button>
+) : (
+  <button
+    onClick={() =>
+      console.log(
+        "Answers:",
+        answers
+      )
+    }
+  >
+    Submit Interview
+  </button>
+)}
   </div>
 )}
     </div>
