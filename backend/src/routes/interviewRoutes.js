@@ -13,6 +13,7 @@ const {
   createInterview,
   uploadResume,
   submitInterview,
+  getUserInterviews,
 } = require(
   "../controllers/interviewController"
 );
@@ -23,6 +24,12 @@ router.post(
   "/",
   protect,
   createInterview
+);
+
+router.get(
+  "/",
+  protect,
+  getUserInterviews
 );
 
 router.post(
