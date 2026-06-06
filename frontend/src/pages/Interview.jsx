@@ -1,8 +1,10 @@
+import "./Interview.css";
 import { useState } from "react";
 import {
   uploadResume,
   submitInterview,
 } from "../services/api/interviewApi";
+import { FaAlignCenter } from "react-icons/fa";
 
 function Interview() {
   const [questions, setQuestions] =
@@ -85,8 +87,13 @@ function Interview() {
   };
 
   return (
-    <div>
+    <div className="interview-container">
       <h1>Create Interview</h1>
+      <p className="interview-subtitle">
+       Upload your resume and
+       generate personalized
+       interview questions
+      </p>
 
       <form onSubmit={handleSubmit}>
         <input
@@ -187,12 +194,23 @@ function Interview() {
         )}
 
       {started && (
-        <div>
+        <div className="question-card">
           <h2>
-            Question{" "}
-            {currentQuestion +
-              1}
-          </h2>
+  Question {currentQuestion + 1}
+  of {questions.length}
+</h2>
+<div className="progress-bar">
+  <div
+    className="progress-fill"
+    style={{
+      width: `${
+        ((currentQuestion + 1) /
+          questions.length) *
+        100
+      }%`,
+    }}
+  ></div>
+</div>
 
           <p>
             {
@@ -203,8 +221,7 @@ function Interview() {
           </p>
 
           <textarea
-            rows="5"
-            cols="50"
+            className="answer-box"
             placeholder="Type your answer..."
             value={
               answers[
@@ -229,8 +246,16 @@ function Interview() {
           <br />
           <br />
 
-          <div>
+          <div
+  style={{
+    display: "flex",
+    justifyContent:
+      "space-between",
+    marginTop: "20px",
+  }}
+>
             <button
+            className="nav-btn"
   onClick={() => {
     if (
       currentQuestion > 0
@@ -244,7 +269,7 @@ function Interview() {
     currentQuestion === 0
   }
 >
-  Previous Question
+   Previous Question
 </button>
 
             {" "}
@@ -253,6 +278,7 @@ function Interview() {
             questions.length -
               1 ? (
               <button
+              className="nav-btn"
                 onClick={() =>
                   setCurrentQuestion(
                     (
@@ -266,6 +292,7 @@ function Interview() {
               </button>
             ) : (
               <button
+              className="nav-btn"
                 onClick={async () => {
                   try {
                     const response =
