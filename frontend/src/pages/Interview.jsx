@@ -48,9 +48,24 @@ const [currentQuestion,
       new FormData();
 
     uploadData.append(
-      "resume",
-      resume
-    );
+  "resume",
+  resume
+);
+
+uploadData.append(
+  "title",
+  formData.title
+);
+
+uploadData.append(
+  "role",
+  formData.role
+);
+
+uploadData.append(
+  "difficulty",
+  formData.difficulty
+);
 
     const response =
       await uploadResume(

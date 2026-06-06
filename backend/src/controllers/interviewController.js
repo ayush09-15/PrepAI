@@ -39,6 +39,12 @@ const uploadResume = async (
   res
 ) => {
   try {
+    const {
+  title,
+  role,
+  difficulty,
+} = req.body;
+
     if (!req.file) {
       return res.status(400).json({
         success: false,
@@ -62,9 +68,9 @@ const uploadResume = async (
   );
   const interview =
   await Interview.create({
-    title: "Resume Interview",
-    role: "General",
-    difficulty: "Medium",
+    title,
+    role,
+    difficulty,
     questions:
       typeof questions === "string"
         ? questions
@@ -88,6 +94,8 @@ const uploadResume = async (
     });
   }
 };
+
+
 const submitInterview = async (
   req,
   res

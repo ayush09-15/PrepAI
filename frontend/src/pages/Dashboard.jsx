@@ -79,15 +79,50 @@ function Dashboard() {
       </h2>
 
       <h2>
-        Pending:
-        {pending}
-      </h2>
+  Pending:
+  {pending}
+</h2>
 
-      <button
-        onClick={handleLogout}
-      >
-        Logout
-      </button>
+<h2>My Interviews</h2>
+
+{interviews.map((interview) => (
+  <div
+    key={interview._id}
+    style={{
+      border: "1px solid gray",
+      padding: "10px",
+      marginBottom: "10px",
+    }}
+  >
+    <h3>{interview.title}</h3>
+
+    <p>
+      Status: {interview.status}
+    </p>
+
+    <p>
+      Difficulty:
+      {" "}
+      {interview.difficulty}
+    </p>
+
+    <button
+      onClick={() =>
+        navigate(
+          `/interviews/${interview._id}`
+        )
+      }
+    >
+      View Details
+    </button>
+  </div>
+))}
+
+<button
+  onClick={handleLogout}
+>
+  Logout
+</button>
     </div>
   );
 }
