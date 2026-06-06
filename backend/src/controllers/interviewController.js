@@ -60,14 +60,27 @@ const uploadResume = async (
   await generateQuestions(
     resumeText
   );
+  const interview =
+  await Interview.create({
+    title: "Resume Interview",
+    role: "General",
+    difficulty: "Medium",
+    questions:
+      typeof questions === "string"
+        ? questions
+            .split("\n")
+            .filter((q) => q.trim())
+        : [],
+    resumeFile: req.file.filename,
+    user: req.user.userId,
+  });
 
     res.status(200).json({
-      success: true,
-      message:
-        "Resume uploaded successfully",
-      file: req.file.filename,
-      questions,
-    });
+  success: true,
+  message:
+    "Resume uploaded successfully",
+  interview,
+});
   } catch (error) {
     res.status(500).json({
       success: false,
