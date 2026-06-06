@@ -10,26 +10,14 @@ const model = genAI.getGenerativeModel({
   model: "gemini-2.0-flash",
 });
 
-const generateQuestions = async (
-  resumeText
-) => {
-  const prompt = `
-You are a technical interviewer.
-
-Based on the resume below, generate 10 interview questions.
-
-Resume:
-${resumeText}
-
-Return only the questions.
+const generateQuestions = async () => {
+  return `
+1. What is JavaScript hoisting?
+2. What is a closure?
+3. Explain promises.
+4. What is the event loop?
+5. Difference between let and const?
 `;
-
-  const result =
-    await model.generateContent(
-      prompt
-    );
-
-  return result.response.text();
 };
 
 module.exports = {
