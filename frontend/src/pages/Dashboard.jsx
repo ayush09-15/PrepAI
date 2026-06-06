@@ -1,3 +1,9 @@
+import {
+  FaClipboardList,
+  FaCheckCircle,
+  FaClock,
+} from "react-icons/fa";
+
 import "./Dashboard.css";
 import {
   useContext,
@@ -70,54 +76,84 @@ return (
     <h1>Dashboard</h1>
 
     <div className="stats-container">
-      <div className="stat-card">
-        <h3>Total Interviews</h3>
-        <p>{totalInterviews}</p>
-      </div>
+  <div className="stat-card">
+    <FaClipboardList
+      className="stat-icon"
+    />
 
-      <div className="stat-card">
-        <h3>Completed</h3>
-        <p>{completed}</p>
-      </div>
+    <h3>Total Interviews</h3>
 
-      <div className="stat-card">
-        <h3>Pending</h3>
-        <p>{pending}</p>
-      </div>
-    </div>
+    <p>{totalInterviews}</p>
+  </div>
+
+  <div className="stat-card">
+    <FaCheckCircle
+      className="stat-icon"
+    />
+
+    <h3>Completed</h3>
+
+    <p>{completed}</p>
+  </div>
+
+  <div className="stat-card">
+    <FaClock
+      className="stat-icon"
+    />
+
+    <h3>Pending</h3>
+
+    <p>{pending}</p>
+  </div>
+</div>
 
     <h2>My Interviews</h2>
 
     {interviews.map((interview) => (
       <div
-        key={interview._id}
-        className="interview-card"
-      >
-        <h3>{interview.title}</h3>
+  key={interview._id}
+  className="interview-card"
+>
+  <div className="card-header">
+    <h3>
+      {interview.title}
+    </h3>
 
-        <p>
-          Status:
-          {" "}
-          {interview.status}
-        </p>
+    <span
+      className={
+        interview.status ===
+        "Completed"
+          ? "badge completed"
+          : "badge pending"
+      }
+    >
+      {interview.status}
+    </span>
+  </div>
 
-        <p>
-          Difficulty:
-          {" "}
-          {interview.difficulty}
-        </p>
+  <p>
+    Role:
+    {" "}
+    {interview.role}
+  </p>
 
-        <button
-          className="view-btn"
-          onClick={() =>
-            navigate(
-              `/interviews/${interview._id}`
-            )
-          }
-        >
-          View Details
-        </button>
-      </div>
+  <p>
+    Difficulty:
+    {" "}
+    {interview.difficulty}
+  </p>
+
+  <button
+    className="view-btn"
+    onClick={() =>
+      navigate(
+        `/interviews/${interview._id}`
+      )
+    }
+  >
+    View Details
+  </button>
+</div>
     ))}
 
     <button
