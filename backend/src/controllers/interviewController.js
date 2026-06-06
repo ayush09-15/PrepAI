@@ -1,6 +1,10 @@
 const path = require("path");
 
 const {
+  generateQuestions,
+} = require("../services/geminiService");
+
+const {
   extractTextFromPDF,
 } = require("../services/pdfService");
 const Interview = require("../models/Interview");
@@ -52,13 +56,17 @@ const uploadResume = async (
       await extractTextFromPDF(
         filePath
       );
+      const questions =
+  await generateQuestions(
+    resumeText
+  );
 
     res.status(200).json({
       success: true,
       message:
         "Resume uploaded successfully",
       file: req.file.filename,
-      resumeText,
+      questions,
     });
   } catch (error) {
     res.status(500).json({
@@ -67,6 +75,7 @@ const uploadResume = async (
     });
   }
 };
+
 
 
 module.exports = {
