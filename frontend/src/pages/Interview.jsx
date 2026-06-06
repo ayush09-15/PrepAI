@@ -231,18 +231,21 @@ function Interview() {
 
           <div>
             <button
-              onClick={() =>
-                setCurrentQuestion(
-                  (
-                    prev
-                  ) =>
-                    prev - 1
-                )
-              }
-              disabled={false}
-            >
-              Previous Question
-            </button>
+  onClick={() => {
+    if (
+      currentQuestion > 0
+    ) {
+      setCurrentQuestion(
+        (prev) => prev - 1
+      );
+    }
+  }}
+  disabled={
+    currentQuestion === 0
+  }
+>
+  Previous Question
+</button>
 
             {" "}
 
