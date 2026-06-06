@@ -21,3 +21,25 @@ export const uploadResume =
 
     return response.data;
   };
+
+export const submitInterview =
+  async (
+    interviewId,
+    answers
+  ) => {
+    const token =
+      localStorage.getItem("token");
+
+    const response =
+      await axios.post(
+        `${API_URL}/${interviewId}/submit`,
+        { answers },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+    return response.data;
+  };

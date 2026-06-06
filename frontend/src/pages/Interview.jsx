@@ -1,10 +1,16 @@
 import { useState } from "react";
-import { uploadResume } from
-"../services/api/interviewApi";
+import {
+  uploadResume,
+  submitInterview,
+} from "../services/api/interviewApi";
 
 function Interview() {
   const [questions, setQuestions] =
   useState([]);
+
+  const [interviewId,
+  setInterviewId] =
+  useState("");
 
   const [answers, setAnswers] =
   useState([]);
@@ -53,6 +59,10 @@ const [currentQuestion,
 
     setQuestions(
   response.interview.questions
+);
+
+setInterviewId(
+  response.interview._id
 );
   } catch (error) {
     console.error(error);
@@ -200,15 +210,26 @@ questions.length - 1 ? (
   </button>
 ) : (
   <button
-    onClick={() =>
-      console.log(
-        "Answers:",
-        answers
-      )
+  onClick={async () => {
+    try {
+      const response =
+        await submitInterview(
+          interviewId,
+          answers
+        );
+
+      console.log(response);
+
+      alert(
+        "Interview submitted successfully!"
+      );
+    } catch (error) {
+      console.error(error);
     }
-  >
-    Submit Interview
-  </button>
+  }}
+>
+  Submit Interview
+</button>
 )}
   </div>
 )}
