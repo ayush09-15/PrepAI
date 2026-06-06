@@ -1,3 +1,8 @@
+const path = require("path");
+
+const {
+  extractTextFromPDF,
+} = require("../services/pdfService");
 const Interview = require("../models/Interview");
 
 const createInterview = async (req, res) => {
@@ -37,11 +42,23 @@ const uploadResume = async (
       });
     }
 
+    const filePath = path.join(
+      process.cwd(),
+      "uploads",
+      req.file.filename
+    );
+
+    const resumeText =
+      await extractTextFromPDF(
+        filePath
+      );
+
     res.status(200).json({
       success: true,
       message:
         "Resume uploaded successfully",
       file: req.file.filename,
+      resumeText,
     });
   } catch (error) {
     res.status(500).json({
