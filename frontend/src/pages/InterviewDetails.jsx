@@ -39,6 +39,9 @@ function InterviewDetails() {
       <p>
         Status: {interview.status}
       </p>
+      <p>
+  Score: {interview.score}
+</p>
 
       <p>
         Difficulty:

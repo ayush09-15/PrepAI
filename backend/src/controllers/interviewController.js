@@ -95,37 +95,6 @@ const uploadResume = async (
   }
 };
 
-
-const submitInterview = async (
-  req,
-  res
-) => {
-  try {
-    const { answers } = req.body;
-
-    const interview =
-      await Interview.findByIdAndUpdate(
-        req.params.id,
-        {
-          answers,
-          status: "Completed",
-        },
-        { new: true }
-      );
-
-    res.status(200).json({
-      success: true,
-      interview,
-    });
-  } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: error.message,
-    });
-  }
-};
-
-
 const getUserInterviews = async (
   req,
   res
@@ -141,6 +110,51 @@ const getUserInterviews = async (
     res.status(200).json({
       success: true,
       interviews,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
+
+const submitInterview = async (
+  req,
+  res
+) => {
+  try {
+    const { answers } = req.body;
+
+    const answeredQuestions =
+      answers.filter(
+        (answer) =>
+          answer &&
+          answer.trim() !== ""
+      ).length;
+
+    const score = Math.round(
+      (answeredQuestions /
+        answers.length) *
+        100
+    );
+
+    const interview =
+      await Interview.findByIdAndUpdate(
+        req.params.id,
+        {
+          answers,
+          score,
+          status: "Completed",
+        },
+        {
+          returnDocument: "after",
+        }
+      );
+
+    res.status(200).json({
+      success: true,
+      interview,
     });
   } catch (error) {
     res.status(500).json({
