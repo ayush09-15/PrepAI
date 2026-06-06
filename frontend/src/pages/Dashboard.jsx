@@ -1,12 +1,62 @@
-import { useContext } from "react";
+import {
+  useContext,
+  useEffect,
+  useState,
+} from "react";
+
+import {
+  getUserInterviews,
+} from "../services/api/interviewApi";
+
 import { useNavigate } from "react-router-dom";
 
 import { AuthContext } from "../context/AuthContext";
 
 function Dashboard() {
-  const { logout } = useContext(AuthContext);
+  const { logout } =
+    useContext(AuthContext);
 
-  const navigate = useNavigate();
+  const navigate =
+    useNavigate();
+
+  const [interviews,
+    setInterviews] =
+    useState([]);
+
+  useEffect(() => {
+    const fetchInterviews =
+      async () => {
+        try {
+          const response =
+            await getUserInterviews();
+
+          setInterviews(
+            response.interviews
+          );
+        } catch (error) {
+          console.error(error);
+        }
+      };
+
+    fetchInterviews();
+  }, []);
+
+  const totalInterviews =
+    interviews.length;
+
+  const completed =
+    interviews.filter(
+      (i) =>
+        i.status ===
+        "Completed"
+    ).length;
+
+  const pending =
+    interviews.filter(
+      (i) =>
+        i.status ===
+        "Pending"
+    ).length;
 
   const handleLogout = () => {
     logout();
@@ -16,9 +66,26 @@ function Dashboard() {
 
   return (
     <div>
-      <h1>Dashboard Page</h1>
+      <h1>Dashboard</h1>
 
-      <button onClick={handleLogout}>
+      <h2>
+        Total Interviews:
+        {totalInterviews}
+      </h2>
+
+      <h2>
+        Completed:
+        {completed}
+      </h2>
+
+      <h2>
+        Pending:
+        {pending}
+      </h2>
+
+      <button
+        onClick={handleLogout}
+      >
         Logout
       </button>
     </div>

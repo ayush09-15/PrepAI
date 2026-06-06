@@ -61,3 +61,23 @@ export const submitInterview =
 
     return response.data;
   };
+
+  export const getUserInterviews =
+  async () => {
+    const token =
+      localStorage.getItem(
+        "token"
+      );
+
+    const response =
+      await axios.get(
+        API_URL,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+    return response.data;
+  };
