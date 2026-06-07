@@ -2,6 +2,7 @@ import "./Interview.css";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { uploadResume, submitInterview } from "../services/api/interviewApi";
+import toast from "react-hot-toast";
 
 const DIFFICULTIES = ["Easy", "Medium", "Hard"];
 
@@ -48,6 +49,7 @@ function Interview() {
       const cleanedAnswers = questions.map((_, i) => answers[i] || "");
       console.log("Submitting interview:", interviewId, answers);
       await submitInterview(interviewId, answers);
+      toast.success("Interview submitted!");
       setSubmitted(true);
     } catch (err) {
       console.error("submit error: ", err);

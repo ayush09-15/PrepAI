@@ -2,6 +2,7 @@ import { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { loginUser } from "../services/api/authApi";
 import { AuthContext } from "../context/AuthContext";
+import toast from "react-hot-toast";
 import "./Login.css";
 
 function Login() {
@@ -23,6 +24,7 @@ function Login() {
     try {
       const data = await loginUser(formData);
       login(data.token);
+      toast.success("Welcome back!");
       navigate("/dashboard");
     } catch (err) {
       setError(err.response?.data?.message || "Invalid credentials. Please try again.");

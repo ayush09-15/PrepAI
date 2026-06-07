@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { registerUser } from "../services/api/authApi";
+import toast from "react-hot-toast";
 import "./Login.css"; 
 
 function Register() {
@@ -20,6 +21,7 @@ function Register() {
     setError("");
     try {
       await registerUser(formData);
+      toast.success("Account created! Please sign in.");
       navigate("/login");
     } catch (err) {
       setError(err.response?.data?.message || "Registration failed. Please try again.");
