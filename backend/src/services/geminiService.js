@@ -1,25 +1,28 @@
-const {
-  GoogleGenerativeAI,
-} = require("@google/generative-ai");
+const { GoogleGenerativeAI } = require("@google/generative-ai");
 
-const genAI = new GoogleGenerativeAI(
-  process.env.GEMINI_API_KEY
-);
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
 const model = genAI.getGenerativeModel({
-  model: "gemini-2.0-flash",
+  model: "gemini-2.5-flash",
 });
 
-const generateQuestions = async () => {
-  return `
-1. What is JavaScript hoisting?
-2. What is a closure?
-3. Explain promises.
-4. What is the event loop?
-5. Difference between let and const?
-`;
+const generateQuestions = async (resumeText) => {
+  const prompt = `
+    Based on the following resume, generate 10 interview questions.
+    Mix technical and behavioral questions relevant to the candidate's experience.
+    Return ONLY a numbered list like:
+    1. Question here
+    2. Question here
+    No extra text, no headings, just the numbered list.
+
+    Resume:
+    ${resumeText}
+  `;
+
+  const result = await model.generateContent(prompt);
+  const response = await result.response;
+  return response.text();
 };
 
-module.exports = {
-  generateQuestions,
-};
+
+module.exports = { generateQuestions };

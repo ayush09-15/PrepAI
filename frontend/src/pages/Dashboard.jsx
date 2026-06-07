@@ -1,4 +1,4 @@
-import { FaClipboardList, FaCheckCircle, FaClock, FaBriefcase } from "react-icons/fa";
+import { FaCheckCircle, FaClock, FaBriefcase } from "react-icons/fa";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { getUserInterviews } from "../services/api/interviewApi";
@@ -25,7 +25,7 @@ function Dashboard() {
     fetchInterviews();
   }, []);
 
-  const totalInterviews = interviews.length;
+  //const totalInterviews = interviews.length;
   const completed = interviews.filter((i) => i.status === "Completed").length;
   const pending = interviews.filter((i) => i.status === "Pending").length;
 
@@ -69,13 +69,6 @@ function Dashboard() {
 
         {/* Stats */}
         <div className="stats-grid">
-          <div className="stat-card">
-            <div className="stat-icon-wrap">
-              <FaClipboardList />
-            </div>
-            <h3>Total</h3>
-            <div className="stat-value">{totalInterviews}</div>
-          </div>
           <div className="stat-card">
             <div className="stat-icon-wrap">
               <FaCheckCircle />

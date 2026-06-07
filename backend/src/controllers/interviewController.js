@@ -105,7 +105,7 @@ const getUserInterviews = async (
         user: req.user.userId,
       }).sort({
         createdAt: -1,
-      });
+      }).limit(10);
 
     res.status(200).json({
       success: true,
