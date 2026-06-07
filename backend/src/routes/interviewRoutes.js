@@ -15,6 +15,7 @@ const {
   submitInterview,
   getUserInterviews,
   getInterviewById,
+  deleteInterview,
 } = require(
   "../controllers/interviewController"
 );
@@ -50,6 +51,12 @@ router.get(
   "/:id",
   protect,
   getInterviewById
+);
+
+router.delete(
+  "/:id",
+  protect,
+  deleteInterview
 );
 
 module.exports = router;

@@ -190,6 +190,31 @@ const getInterviewById = async (
   }
 };
 
+const deleteInterview = async (req, res) => {
+  try {
+    const interview = await Interview.findOneAndDelete({
+      _id: req.params.id,
+      user: req.user.userId,
+    });
+
+    if (!interview) {
+      return res.status(404).json({
+        success: false,
+        message: "Interview not found",
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "Interview deleted successfully",
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+};
 
 module.exports = {
   createInterview,
@@ -197,4 +222,5 @@ module.exports = {
   submitInterview,
   getUserInterviews,
   getInterviewById,
+  deleteInterview,
 };

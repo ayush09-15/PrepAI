@@ -1,8 +1,9 @@
 import { FaCheckCircle, FaClock, FaBriefcase } from "react-icons/fa";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { getUserInterviews } from "../services/api/interviewApi";
+import { getUserInterviews, deleteInterview } from "../services/api/interviewApi";
 import { AuthContext } from "../context/AuthContext";
+import toast from "react-hot-toast";
 import "./Dashboard.css";
 
 function Dashboard() {
@@ -39,6 +40,18 @@ function Dashboard() {
     if (d === "Hard") return "difficulty-hard";
     return "difficulty-medium";
   };
+
+
+  const handleDelete = async (id) => {
+  if (!window.confirm("Are you sure you want to delete this interview?")) return;
+  try {
+    await deleteInterview(id);
+    setInterviews((prev) => prev.filter((i) => i._id !== id));
+    toast.success("Interview deleted!");
+  } catch (error) {
+    toast.error("Failed to delete interview.");
+  }
+};
 
   return (
     <div className="dashboard-page">
@@ -130,6 +143,12 @@ function Dashboard() {
                   >
                     View →
                   </button>
+                  <button
+    className="btn btn-danger"
+    onClick={() => handleDelete(interview._id)}
+  >
+    Delete
+  </button>
                 </div>
               </div>
             ))}
