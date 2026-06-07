@@ -45,10 +45,12 @@ function Interview() {
 
   const handleFinish = async () => {
     try {
+      const cleanedAnswers = questions.map((_, i) => answers[i] || "");
+      console.log("Submitting interview:", interviewId, answers);
       await submitInterview(interviewId, answers);
       setSubmitted(true);
     } catch (err) {
-      console.error(err);
+      console.error("submit error: ", err);
     }
   };
 

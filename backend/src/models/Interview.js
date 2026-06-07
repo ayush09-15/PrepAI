@@ -50,6 +50,10 @@ const interviewSchema = new mongoose.Schema(
       type: Number,
       default: 0,
     },
+    feedback: {
+  type: String,
+  default: "",
+},
   },
   {
     timestamps: true,
