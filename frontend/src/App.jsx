@@ -6,6 +6,7 @@ import Dashboard from "./pages/Dashboard";
 import Interview from "./pages/Interview";
 import CreateInterview from "./pages/CreateInterview";
 import InterviewDetails from "./pages/InterviewDetails";
+import Home from "./pages/Home";
 
 import { ROUTES } from "./routes/routes";
 
@@ -13,7 +14,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Navigate to="/login" />} />
+        <Route path="/" element={<Home />}/>
         <Route path={ROUTES.LOGIN} element={<Login />} />
         <Route path={ROUTES.REGISTER} element={<Register />} />
         <Route
