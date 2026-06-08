@@ -1,3 +1,4 @@
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Legend } from "recharts";
 import { FaCheckCircle, FaClock, FaBriefcase } from "react-icons/fa";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
@@ -53,6 +54,29 @@ function Dashboard() {
   }
 };
 
+const getChartData = () => {
+  const weeks = {};
+
+  interviews.forEach((interview) => {
+    const date = new Date(interview.createdAt);
+    const week = `Week ${Math.ceil(date.getDate() / 7)}`;
+    
+    if (!weeks[week]) {
+      weeks[week] = { week, completed: 0, pending: 0 };
+    }
+
+    if (interview.status === "Completed") {
+      weeks[week].completed += 1;
+    } else {
+      weeks[week].pending += 1;
+    }
+  });
+
+  return Object.values(weeks);
+};
+
+
+
   return (
     <div className="dashboard-page">
       {/* Topbar */}
@@ -97,6 +121,74 @@ function Dashboard() {
             <div className="stat-value">{pending}</div>
           </div>
         </div>
+
+        {/* Progress Chart */}
+{interviews.length > 0 && (
+  <div style={{
+    background: "var(--bg-card)",
+    border: "1px solid var(--border)",
+    borderRadius: "var(--radius-lg)",
+    padding: "28px",
+    marginBottom: "40px",
+  }}>
+    <h2 style={{
+      fontFamily: "var(--font-display)",
+      fontSize: "1.2rem",
+      fontWeight: 700,
+      marginBottom: "24px",
+    }}>
+      Progress Overview
+    </h2>
+
+    <ResponsiveContainer width="100%" height={250}>
+      <BarChart data={getChartData()} barGap={8}>
+        <XAxis
+          dataKey="week"
+          stroke="var(--text-muted)"
+          fontSize={13}
+          tickLine={false}
+          axisLine={false}
+        />
+        <YAxis
+          stroke="var(--text-muted)"
+          fontSize={13}
+          tickLine={false}
+          axisLine={false}
+          allowDecimals={false}
+        />
+        <Tooltip
+          contentStyle={{
+            background: "var(--bg-secondary)",
+            border: "1px solid var(--border)",
+            borderRadius: "8px",
+            color: "var(--text-primary)",
+            fontSize: "13px",
+          }}
+          cursor={{ fill: "rgba(99,120,255,0.05)" }}
+        />
+        <Legend
+    wrapperStyle={{
+      fontSize: "13px",
+      color: "var(--text-secondary)",
+      paddingTop: "16px",
+    }}
+  />
+        <Bar
+          dataKey="completed"
+          fill="var(--success)"
+          radius={[6, 6, 0, 0]}
+          name="Completed"
+        />
+        <Bar
+          dataKey="pending"
+          fill="var(--accent)"
+          radius={[6, 6, 0, 0]}
+          name="Pending"
+        />
+      </BarChart>
+    </ResponsiveContainer>
+  </div>
+)}
 
         {/* Interview list */}
         <div className="section-heading">
