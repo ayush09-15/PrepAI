@@ -1,18 +1,14 @@
+const fs = require("fs");
 const path = require("path");
 
 const {
-  generateQuestions,
+  generateQuestions,generateFeedback
 } = require("../services/geminiService");
 
 const {
   extractTextFromPDF,
 } = require("../services/pdfService");
 const Interview = require("../models/Interview");
-
-const { 
-    generateFeedback 
-} = require("../services/geminiService");
-
 
 const createInterview = async (req, res) => {
   try {
@@ -128,24 +124,19 @@ const submitInterview = async (req, res) => {
   try {
     const { answers } = req.body;
 
-    console.log("1. answers received:", answers);
-
     const existingInterview = await Interview.findById(req.params.id);
-    console.log("2. interview found:", existingInterview?._id);
-
+    
     const answeredQuestions = answers.filter(
       (answer) => answer && answer.trim() !== ""
     ).length;
 
     const score = Math.round((answeredQuestions / answers.length) * 100);
-    console.log("3. score calculated:", score);
-
+    
     const feedback = await generateFeedback(
       existingInterview.questions,
       answers
     );
-    console.log("4. feedback generated:", feedback);
-
+    
     const interview = await Interview.findByIdAndUpdate(
       req.params.id,
       { answers, score, status: "Completed", feedback },
@@ -154,7 +145,7 @@ const submitInterview = async (req, res) => {
 
     res.status(200).json({ success: true, interview });
   } catch (error) {
-    console.log("ERROR:", error.message);
+    
     res.status(500).json({ success: false, message: error.message });
   }
 };
@@ -203,6 +194,14 @@ const deleteInterview = async (req, res) => {
         message: "Interview not found",
       });
     }
+
+    if (interview.resumeFile) {
+      const filePath = path.join(process.cwd(), "uploads", interview.resumeFile);
+      if (fs.existsSync(filePath)) {
+        fs.unlinkSync(filePath);
+      }
+    }
+
 
     res.status(200).json({
       success: true,
