@@ -297,3 +297,88 @@
   font-size: 14px;
   margin-bottom: 24px;
 }
+
+/* Tablet */
+@media (max-width: 768px) {
+  .dashboard-topbar {
+    padding: 16px 24px;
+  }
+
+  .dashboard-content {
+    padding: 32px 24px;
+  }
+
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .interview-card {
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .interview-card-actions {
+    width: 100%;
+    justify-content: flex-end;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .dashboard-topbar {
+    padding: 14px 16px;
+  }
+
+  .topbar-actions {
+    gap: 8px;
+  }
+
+  .topbar-actions .btn {
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+
+  .dashboard-content {
+    padding: 24px 16px;
+  }
+
+  .dashboard-header h1 {
+    font-size: 1.6rem;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .stat-card {
+    padding: 20px 16px;
+  }
+
+  .stat-card .stat-value {
+    font-size: 1.8rem;
+  }
+
+  .interview-card {
+    padding: 16px;
+  }
+
+  .interview-card-body h3 {
+    font-size: 14px;
+  }
+
+  .interview-card-meta {
+    font-size: 12px;
+    gap: 8px;
+  }
+
+  .interview-card-actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .interview-card-actions .btn {
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+}

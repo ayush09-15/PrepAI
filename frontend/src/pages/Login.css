@@ -177,3 +177,36 @@
   height: 1px;
   background: var(--border);
 }
+
+/* Tablet */
+@media (max-width: 768px) {
+  .auth-panel {
+    display: none;
+  }
+
+  .auth-form-area {
+    padding: 40px 24px;
+  }
+
+  .auth-card {
+    max-width: 100%;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .auth-form-area {
+    padding: 32px 20px;
+    align-items: flex-start;
+    padding-top: 60px;
+  }
+
+  .auth-card-header h1 {
+    font-size: 1.6rem;
+  }
+
+  .btn.auth-submit {
+    padding: 14px;
+    font-size: 15px;
+  }
+}

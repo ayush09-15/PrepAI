@@ -387,3 +387,107 @@
   cursor: not-allowed;
   pointer-events: none;
 }
+
+/* Tablet */
+@media (max-width: 768px) {
+  .interview-topbar {
+    padding: 16px 24px;
+  }
+
+  .interview-content {
+    padding: 40px 24px;
+  }
+
+  .setup-card {
+    padding: 28px 24px;
+  }
+
+  .active-interview {
+    padding: 32px 24px;
+  }
+
+  .question-card {
+    padding: 28px 24px;
+  }
+
+  .answer-card {
+    padding: 28px 24px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .interview-topbar {
+    padding: 14px 16px;
+  }
+
+  .interview-content {
+    padding: 24px 16px;
+  }
+
+  .interview-page-header h1 {
+    font-size: 1.6rem;
+  }
+
+  .interview-page-header p {
+    font-size: 14px;
+  }
+
+  .setup-card {
+    padding: 20px 16px;
+  }
+
+  .difficulty-selector {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+
+  .difficulty-btn {
+    padding: 10px 6px;
+    font-size: 13px;
+  }
+
+  .file-upload-area {
+    padding: 24px 16px;
+  }
+
+  .active-interview {
+    padding: 24px 16px;
+  }
+
+  .question-card {
+    padding: 20px 16px;
+  }
+
+  .question-text {
+    font-size: 1rem;
+  }
+
+  .answer-card {
+    padding: 20px 16px;
+  }
+
+  .answer-box {
+    min-height: 140px;
+    font-size: 14px;
+  }
+
+  .interview-nav .btn {
+    padding: 10px 16px;
+    font-size: 14px;
+  }
+
+  .questions-preview-header {
+    padding: 20px 20px;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .question-preview-item {
+    padding: 14px 20px;
+  }
+
+  .questions-preview-footer {
+    padding: 20px;
+  }
+}
