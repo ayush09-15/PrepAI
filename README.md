@@ -12,6 +12,7 @@ A full stack MERN application that generates personalized interview questions fr
 - **Interview History** — View all past interviews with your answers and scores
 - **JWT Authentication** — Secure login and registration with token-based auth
 - **Delete Interview** — Remove interviews and automatically clean up uploaded resume files from the server
+- **Mobile Responsive** — Fully responsive design that works seamlessly on mobile, tablet, and desktop
 
 ---
 
