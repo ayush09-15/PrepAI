@@ -6,6 +6,7 @@ import Dashboard from "./pages/Dashboard";
 import Interview from "./pages/Interview";
 import CreateInterview from "./pages/CreateInterview";
 import InterviewDetails from "./pages/InterviewDetails";
+import Profile from "./pages/Profile";
 import Home from "./pages/Home";
 
 import { ROUTES } from "./routes/routes";
@@ -44,6 +45,14 @@ function App() {
   element={
     <ProtectedRoute>
       <InterviewDetails />
+    </ProtectedRoute>
+  }
+/>
+<Route
+  path="/profile"
+  element={
+    <ProtectedRoute>
+      <Profile />
     </ProtectedRoute>
   }
 />

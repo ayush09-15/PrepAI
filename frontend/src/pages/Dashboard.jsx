@@ -87,9 +87,11 @@ const getChartData = () => {
             <button className="btn btn-primary">+ New Interview</button>
           </Link>
           <div className="topbar-user">
-            <div className="topbar-avatar">
-              {user?.name?.[0]?.toUpperCase() || "U"}
-            </div>
+            <Link to="/profile" style={{ textDecoration: "none" }}>
+  <div className="topbar-avatar" style={{ cursor: "pointer" }}>
+    {user?.name?.[0]?.toUpperCase() || "U"}
+  </div>
+</Link>
             <button className="btn btn-ghost" onClick={handleLogout}>
               Sign Out
             </button>
