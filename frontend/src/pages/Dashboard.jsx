@@ -75,7 +75,13 @@ const getChartData = () => {
   return Object.values(weeks);
 };
 
-
+const formatDate = (dateString) => {
+  return new Date(dateString).toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  });
+};
 
   return (
     <div className="dashboard-page">
@@ -225,6 +231,7 @@ const getChartData = () => {
                     {interview.status === "Completed" && (
                       <span>📊 Score: {interview.score}%</span>
                     )}
+                    <span>🗓 {formatDate(interview.createdAt)}</span>
                   </div>
                 </div>
                 <div className="interview-card-actions">
