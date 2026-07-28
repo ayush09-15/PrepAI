@@ -35,7 +35,7 @@ A full stack MERN application that generates personalized interview questions fr
 - PDF text extraction
 
 **AI**
-- Google Gemini AI (gemini-3.5-flash)
+- Google Gemini AI (gemini-3.6-flash)
 
 ---
 
